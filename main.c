@@ -10,12 +10,6 @@
 
 #include "utils.h"
 
-
-
-
-
-
-
 void encryptFile(int inputfile, int outputfile, int algorithm, char* key)
 {
 
@@ -46,19 +40,5 @@ char* crackString(char* data, int algorithm, void* info)
 
 }
 int main(int argc, char* argv[]) {
-    /*Options :
-     * -f --file inputFile
-     * -o --output outputFile
-     * -s --string string
-     * -e --encrypt encrypt
-     * -d --decrypt decrypt
-     * -a --algorithm algorithm
-     * -k --key key
-     * -c --crack crack
-     * -b --brute bruteforce
-     * -l --lang language
-     * -h --help display help
-     * --alphabet alphabet
-     */
     return 0;
 }

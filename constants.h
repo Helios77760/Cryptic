@@ -5,6 +5,9 @@
 #ifndef CRYPTIC_CONSTANTS_H
 #define CRYPTIC_CONSTANTS_H
 
+#define ALPHABET_DEFAULT "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+#define ALPHABET_ALPHANUM "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+
 #include "includes/auto.h"
 #include "includes/caesar.h"
 #include "includes/playfair.h"
