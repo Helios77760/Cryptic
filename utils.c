@@ -43,7 +43,7 @@ routineInfo initRoutineInfo()
 	rinfo.outputFile 	= STDOUT_FILENO;
 	rinfo.brute 		= 0;
 	rinfo.key 			= NULL;
-	rinfo.lang			= 0; //fr
+	rinfo.lang			= FR;
 	rinfo.string 		= NULL;
 	rinfo.alphabet		= ALPHABET_DEFAULT;
 	rinfo.operationType	= INVALID;
@@ -111,6 +111,7 @@ routineInfo parseArgs(int argc, char* argv[])
 			switch(arg[1])
 			{
 				case 'f':
+					rinfo.typeInput = FILETYPE;
 					rinfo.inputFile = open(argv[++i], O_RDONLY);
 					if(rinfo.inputFile ==-1)
 						displayError("Cannot open input file");
@@ -121,6 +122,7 @@ routineInfo parseArgs(int argc, char* argv[])
 						displayError("Cannot open output file");
 					break;
 				case 's':
+					rinfo.typeInput = STRINGTYPE;
 					rinfo.string = argv[++i];
 					break;
 				case 'e':
@@ -136,7 +138,6 @@ routineInfo parseArgs(int argc, char* argv[])
 						displayAlgorithms();
 						displayError("Can't find algorithm");
 					}
-
 					break;
 				case 'k':
 					rinfo.key = argv[++i];

@@ -39,5 +39,8 @@ void* crackStringRoutines[] 	= {cs_caesar, cs_vigenere, cs_auto, cs_playfair, cs
 #define EN 1
 char* langs[] = {"FR", "EN"};
 
+#define FILETYPE 0
+#define STRINGTYPE 1
+
 
 #endif //CRYPTIC_CONSTANTS_H
