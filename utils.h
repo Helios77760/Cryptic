@@ -15,6 +15,12 @@ typedef struct _routineInfo
     char* string;
 } routineInfo;
 
-void ef_none(routineInfo info );
+void ef_none(routineInfo info);
+void df_none(routineInfo info);
+void cf_none(routineInfo info);
+void es_none(routineInfo info);
+void ds_none(routineInfo info);
+void cs_none(routineInfo info);
+routineInfo initRoutineInfo();
 
 #endif //CRYPTIC_UTILS_H

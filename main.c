@@ -7,19 +7,14 @@
 #include <unistd.h>
 #include <fcntl.h>
 
-#include "includes/auto.h"
-#include "includes/caesar.h"
-#include "includes/playfair.h"
-#include "includes/railfence.h"
-#include "includes/vigenere.h"
+
 #include "utils.h"
 
 
 
 
 
-char* algorithms[] = {"caesar", "vigenere", "auto", "playfair", "railfence", "", "", "", "", ""};
-void* encryptFileRoutines[] = {ef_caesar, ef_vigenere, ef_auto, ef_playfair, ef_railfence, ef_none, ef_none, ef_none, ef_none, ef_none};
+
 
 void encryptFile(int inputfile, int outputfile, int algorithm, char* key)
 {
