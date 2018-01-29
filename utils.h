@@ -15,6 +15,8 @@ typedef struct _routineInfo
     int brute;
     char* string;
 	char* alphabet;
+	int operationType;
+	int algorithm;
 } routineInfo;
 
 void ef_none(routineInfo info);
@@ -26,9 +28,16 @@ void cs_none(routineInfo info);
 
 void displayHelp();
 void displayUsage();
-void diplayAlgorithms();
+void displayAlgorithms();
+void displayLangs();
+void displayError(char* message);
 
 routineInfo initRoutineInfo();
 routineInfo parseArgs(int argc, char* argv[]);
+
+void extendedToShortArg(char* arg);
+int findIndexString(char* array[], char* value, size_t length);
+
+
 
 #endif //CRYPTIC_UTILS_H
