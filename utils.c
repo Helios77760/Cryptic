@@ -38,6 +38,7 @@ char* cs_none(routineInfo info)
 routineInfo initRoutineInfo()
 {
 	routineInfo rinfo;
+	rinfo.algorithm     = UNDEFINED;
 	rinfo.typeInput		= UNDEFINED;
 	rinfo.inputFile 	= UNDEFINED;
 	rinfo.outputFile 	= UNDEFINED;
@@ -46,6 +47,7 @@ routineInfo initRoutineInfo()
 	rinfo.lang			= FR;
 	rinfo.string 		= NULL;
 	rinfo.alphabet		= ALPHABET_DEFAULT;
+	rinfo.alphabetSize  = ALPHABET_DEFAULT_SIZE;
 	rinfo.operationType	= UNDEFINED;
 	return rinfo;
 }
@@ -99,6 +101,7 @@ routineInfo parseArgs(int argc, char* argv[])
 {
 	routineInfo rinfo = initRoutineInfo();
 	char* arg;
+
 	for(int i=1; i<argc; i++)
 	{
 		arg = argv[i];
@@ -156,6 +159,7 @@ routineInfo parseArgs(int argc, char* argv[])
 					break;
 				case 'x':
 					rinfo.alphabet = argv[++i];
+					rinfo.alphabetSize = (int)strlen(rinfo.alphabet);
 					break;
 				case 'L':
 					rinfo.lang = findIndexString(langs, argv[++i], NUMBEROFLANG);
@@ -221,18 +225,18 @@ void displayRoutineInfo(routineInfo rinfo)
     printf("Routine : \n"
                    "Operation : \t%s\n"
                    "Algorithme : \t%s\n"
-                   "TypeDonnees : \t%s\n"
+                   "DataType : \t%s\n"
                    "Alphabet : \t%s\n"
-                   "Langue : \t%s\n"
+                   "Language : \t%s\n"
     , rinfo.operationType == CRACK ? "Crack" : rinfo.operationType == ENCRYPT ? "Encrypt" : rinfo.operationType == UNDEFINED ? "UNDEFINED" : "Decrypt"
     , rinfo.algorithm == UNDEFINED ? "UNDEFINED" : algorithms[rinfo.algorithm]
-    , rinfo.typeInput == FILETYPE ? "Fichier" : rinfo.typeInput == STRINGTYPE ? "String" : "UNDEFINED"
+    , rinfo.typeInput == FILETYPE ? "File" : rinfo.typeInput == STRINGTYPE ? "String" : "UNDEFINED"
     , rinfo.alphabet
     , rinfo.lang == UNDEFINED ? "UNDEFINED" : langs[rinfo.lang]);
     if(rinfo.operationType == ENCRYPT || rinfo.operationType == DECRYPT)
         printf("Key : \t%s\n", rinfo.key);
     if(rinfo.operationType == CRACK)
-        printf("ForceBrute : \t%s\n", rinfo.brute ? "Oui" : "Non");
+        printf("BruteForce : \t%s\n", rinfo.brute ? "Yes" : "No");
     printf("\n---\n");
 
 }
@@ -265,4 +269,38 @@ int validateRoutine(routineInfo rinfo) {
             }
         }
     return 0;
+}
+
+int proposeSolution()
+{
+	char choice;
+	do{
+		printf("\n\nGood ? (Y or N)");
+		fflush(stdin);
+
+		scanf("%c", &choice);
+	}while(choice != 'Y' && choice != 'y' && choice != 'n' && choice != 'N');
+	return choice == 'Y' || choice == 'y';
+}
+
+void warnSize(char* message, long actualSize, long maxSize, char* messageEnd)
+{
+	printf("WARNING : %s Actual : %ld Max : %ld %s", message, actualSize, maxSize, messageEnd ? messageEnd : "");
+}
+
+routineInfo clone(routineInfo rinfo)
+{
+	routineInfo ri;
+	ri.inputFile = rinfo.inputFile;
+	ri.alphabetSize = rinfo.alphabetSize;
+	ri.alphabet = rinfo.alphabet;
+	ri.brute = rinfo.brute;
+	ri.algorithm = rinfo.algorithm;
+	ri.outputFile = rinfo.outputFile;
+	ri.key = rinfo.key;
+	ri.typeInput = rinfo.typeInput;
+	ri.operationType = rinfo.operationType;
+	ri.string = rinfo.string;
+	ri.lang = rinfo.lang;
+	return ri;
 }

@@ -3,5 +3,6 @@ project(Cryptic)
 
 set(CMAKE_C_STANDARD 11)
 
-set(SOURCE_FILES main.c cyphers/caesar.c includes/caesar.h cyphers/vigenere.c includes/vigenere.h cyphers/auto.c includes/auto.h cyphers/playfair.c includes/playfair.h cyphers/railfence.c includes/railfence.h utils.c utils.h constants.h constants.c)
+set(SOURCE_FILES main.c cyphers/caesar.c cyphers/vigenere.c cyphers/auto.c cyphers/playfair.c cyphers/railfence.c utils.c constants.c)
+set(HEADER_FILES includes/caesar.h includes/vigenere.h includes/auto.h includes/playfair.h includes/railfence.h utils.h constants.h)
 add_executable(Cryptic ${SOURCE_FILES})

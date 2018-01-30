@@ -17,6 +17,7 @@ typedef struct _routineInfo
     int brute;
     char* string;
 	char* alphabet;
+	int alphabetSize;
 	int operationType;
 	int algorithm;
 } routineInfo;
@@ -34,13 +35,17 @@ void displayAlgorithms();
 void displayLangs();
 void displayError(char* message);
 void displayRoutineInfo(routineInfo rinfo);
+void warnSize(char* message, long actualSize, long maxSize, char* messageEnd);
 
 routineInfo initRoutineInfo();
 routineInfo parseArgs(int argc, char* argv[]);
 int validateRoutine(routineInfo rinfo);
+routineInfo clone(routineInfo rinfo);
 
 void extendedToShortArg(char* arg);
 int findIndexString(char* array[], char* value, size_t length);
+
+int proposeSolution();
 
 
 

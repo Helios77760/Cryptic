@@ -13,6 +13,7 @@
 int main(int argc, char* argv[]) {
     routineInfo rinfo = parseArgs(argc, argv);
     displayRoutineInfo(rinfo);
+
     if(validateRoutine(rinfo))
     {
         if(rinfo.typeInput == FILETYPE)
@@ -29,18 +30,19 @@ int main(int argc, char* argv[]) {
             }
         }else if(rinfo.typeInput == STRINGTYPE)
         {
+            FILE* fp = fdopen(rinfo.outputFile, "w");
             if(rinfo.operationType == ENCRYPT)
             {
-                encryptStringRoutines[rinfo.algorithm](rinfo);
+                fprintf(fp, "%s", encryptStringRoutines[rinfo.algorithm](rinfo));
             }else if(rinfo.operationType == DECRYPT)
             {
-                decryptStringRoutines[rinfo.algorithm](rinfo);
+                fprintf(fp, "%s", decryptStringRoutines[rinfo.algorithm](rinfo));
             }else if(rinfo.operationType == CRACK)
             {
-                crackStringRoutines[rinfo.algorithm](rinfo);
+                fprintf(fp, "%s", crackStringRoutines[rinfo.algorithm](rinfo));
             }
         }
-
+	    printf("Operation success !");
     }else
     {
         printf("Invalid routine info\n");
