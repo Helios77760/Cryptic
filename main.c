@@ -7,38 +7,43 @@
 #include <unistd.h>
 #include <fcntl.h>
 
+#include "constants.h"
 
-#include "utils.h"
 
-void encryptFile(int inputfile, int outputfile, int algorithm, char* key)
-{
-
-}
-
-void decryptFile(int inputfile, int outputfile, int algorithm, char* key)
-{
-
-}
-
-void crackFile(int inputfile, int outputfile, int algorithm, void* info)
-{
-
-}
-
-char* encryptString(char* data, int algorithm, char* key)
-{
-
-}
-
-char* decryptString(char* data, int algorithm, char* key)
-{
-
-}
-
-char* crackString(char* data, int algorithm, void* info)
-{
-
-}
 int main(int argc, char* argv[]) {
+    routineInfo rinfo = parseArgs(argc, argv);
+    displayRoutineInfo(rinfo);
+    if(validateRoutine(rinfo))
+    {
+        if(rinfo.typeInput == FILETYPE)
+        {
+            if(rinfo.operationType == ENCRYPT)
+            {
+                encryptFileRoutines[rinfo.algorithm](rinfo);
+            }else if(rinfo.operationType == DECRYPT)
+            {
+                decryptFileRoutines[rinfo.algorithm](rinfo);
+            }else if(rinfo.operationType == CRACK)
+            {
+                crackFileRoutines[rinfo.algorithm](rinfo);
+            }
+        }else if(rinfo.typeInput == STRINGTYPE)
+        {
+            if(rinfo.operationType == ENCRYPT)
+            {
+                encryptStringRoutines[rinfo.algorithm](rinfo);
+            }else if(rinfo.operationType == DECRYPT)
+            {
+                decryptStringRoutines[rinfo.algorithm](rinfo);
+            }else if(rinfo.operationType == CRACK)
+            {
+                crackStringRoutines[rinfo.algorithm](rinfo);
+            }
+        }
+
+    }else
+    {
+        printf("Invalid routine info\n");
+    }
     return 0;
 }
