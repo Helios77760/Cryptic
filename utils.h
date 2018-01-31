@@ -20,6 +20,7 @@ typedef struct _routineInfo
 	int alphabetSize;
 	int operationType;
 	int algorithm;
+	char* frequency;
 } routineInfo;
 
 void ef_none(routineInfo info);
@@ -47,6 +48,11 @@ int findIndexString(char* array[], char* value, size_t length);
 
 int proposeSolution();
 
+char* getFrequencyAlphabetFile(routineInfo rinfo);
+void sortArrayFromFrequencies(char* array, int* frequencies, int size);
+void rearrangeWithFrequencyAlphabet(char* array, char* frequencyAlpha, int size);
 
+void swapInt(int* a, int* b);
+void swapChar(char* a, char *b);
 
 #endif //CRYPTIC_UTILS_H

@@ -49,6 +49,7 @@ routineInfo initRoutineInfo()
 	rinfo.alphabet		= ALPHABET_DEFAULT;
 	rinfo.alphabetSize  = ALPHABET_DEFAULT_SIZE;
 	rinfo.operationType	= UNDEFINED;
+	rinfo.frequency		= FREQUENCY_FR;
 	return rinfo;
 }
 
@@ -96,6 +97,7 @@ void extendedToShortArgs(char* arg)
      * -h --help display help
      * -x --alphabet alphabet
      * -l --list affiche liste algorithmes
+     * -F frequency
      */
 routineInfo parseArgs(int argc, char* argv[])
 {
@@ -169,6 +171,8 @@ routineInfo parseArgs(int argc, char* argv[])
 						displayError("Can't find language\n");
 					}
 					break;
+				case 'F':
+					rinfo.frequency = argv[++i];
 				default:
 					break;
 
@@ -302,5 +306,88 @@ routineInfo clone(routineInfo rinfo)
 	ri.operationType = rinfo.operationType;
 	ri.string = rinfo.string;
 	ri.lang = rinfo.lang;
+	ri.frequency = rinfo.frequency;
 	return ri;
+}
+
+void sortArrayFromFrequencies(char* array, int* frequencies, int size)
+{
+	for(int i=0; i<size;i++)
+	{
+		for(int j=0; j<size-1-i;j++)
+		{
+			if(frequencies[j] < frequencies[j+1])
+			{
+				swapInt(frequencies+j, frequencies+j+1);
+				swapChar(array+j, array+j+1);
+			}
+		}
+	}
+}
+
+
+
+char* getFrequencyAlphabetFile(routineInfo rinfo)
+{
+	char* frequencyAlphabet = malloc(sizeof(char)*rinfo.alphabetSize+1);
+	if(!frequencyAlphabet)
+	{
+		displayError("getFrequencyAlphabetFile : Can't allocate");
+	}
+	int* occurences = calloc(rinfo.alphabetSize, sizeof(int));
+	if(!occurences)
+	{
+		free(frequencyAlphabet);
+		displayError("getFrequencyAlphabetFile : Can't allocate");
+	}
+	strcpy(frequencyAlphabet, rinfo.alphabet);
+	char buffer;
+	lseek(rinfo.inputFile, 0, SEEK_SET);
+	while(read(rinfo.inputFile, &buffer, 1) >0)
+	{
+		char* position = strchr(frequencyAlphabet, buffer);
+		if(position)
+		{
+			long index = position-frequencyAlphabet;
+			occurences[index]++;
+		}
+	}
+	for(int i=0; i<rinfo.alphabetSize;i++)
+	{
+		printf("%c %d\n", frequencyAlphabet[i], occurences[i]);
+	}
+	sortArrayFromFrequencies(frequencyAlphabet, occurences, rinfo.alphabetSize);
+	printf("Sorted : %s\n", frequencyAlphabet);
+	free(occurences);
+	lseek(rinfo.inputFile, 0, SEEK_SET);
+	return frequencyAlphabet;
+}
+
+void swapInt(int* a, int* b)
+{
+	int temp = *a;
+	*a = *b;
+	*b = temp;
+}
+
+void swapChar(char* a, char* b)
+{
+	char temp = *a;
+	*a = *b;
+	*b = temp;
+}
+
+void rearrangeWithFrequencyAlphabet(char* array, char* frequencyAlpha, int size)
+{
+	for(int i=0; i<size;i++)
+	{
+		for(int j=0; j<size-1-i;j++)
+		{
+			if(frequencyAlpha[j] > frequencyAlpha[j+1])
+			{
+				swapChar(frequencyAlpha+j, frequencyAlpha+j+1);
+				swapChar(array+j, array+j+1);
+			}
+		}
+	}
 }

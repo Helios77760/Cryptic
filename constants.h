@@ -15,13 +15,14 @@
 #define DECRYPT 1
 #define CRACK	2
 
-#define NUMBEROFALGO 5
+#define NUMBEROFALGO 6
 #define UNDEFINED (-1)
 #define CAESAR 0
 #define VIGENERE 1
 #define AUTO 2
 #define PLAYFAIR 3
 #define RAILFENCE 4
+#define SUBST 5
 
 #define NUMBEROFLANG 2
 #define FR 0
